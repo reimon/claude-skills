@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a **comprehensive skills library** for Claude AI and Claude Code - reusable, production-ready skill packages that bundle domain expertise, best practices, analysis tools, and strategic frameworks. The repository provides modular skills that teams can download and use directly in their workflows.
 
-**Current Scope:** 235 production-ready skills across 9 domains with 314 Python automation tools, 435 reference guides, 28 agents, and 27 slash commands.
+**Current Scope:** 183 production-ready skills across 9 domains with 372 Python automation tools, 451 reference guides, 28 agents, and 29 slash commands.
 
 **Key Distinction**: This is NOT a traditional application. It's a library of skill packages meant to be extracted and deployed by users into their own Claude workflows.
 
@@ -14,20 +14,20 @@ This is a **comprehensive skills library** for Claude AI and Claude Code - reusa
 
 This repository uses **modular documentation**. For domain-specific guidance, see:
 
-| Domain | CLAUDE.md Location | Focus |
-|--------|-------------------|-------|
-| **Agent Development** | [agents/CLAUDE.md](agents/CLAUDE.md) | cs-* agent creation, YAML frontmatter, relative paths |
-| **Marketing Skills** | [marketing-skill/CLAUDE.md](marketing-skill/CLAUDE.md) | Content creation, SEO, ASO, demand gen, campaign analytics |
-| **Product Team** | [product-team/CLAUDE.md](product-team/CLAUDE.md) | RICE, OKRs, user stories, UX research, SaaS scaffolding |
-| **Engineering (Core)** | [engineering-team/CLAUDE.md](engineering-team/CLAUDE.md) | Fullstack, AI/ML, DevOps, security, data, QA tools |
-| **Engineering (POWERFUL)** | [engineering/](engineering/) | Agent design, RAG, MCP, CI/CD, database, observability |
-| **C-Level Advisory** | [c-level-advisor/CLAUDE.md](c-level-advisor/CLAUDE.md) | CEO/CTO strategic decision-making |
-| **Project Management** | [project-management/CLAUDE.md](project-management/CLAUDE.md) | Atlassian MCP, Jira/Confluence integration |
-| **RA/QM Compliance** | [ra-qm-team/CLAUDE.md](ra-qm-team/CLAUDE.md) | ISO 13485, MDR, FDA, GDPR, ISO 27001 compliance |
-| **Business & Growth** | [business-growth/CLAUDE.md](business-growth/CLAUDE.md) | Customer success, sales engineering, revenue operations |
-| **Finance** | [finance/CLAUDE.md](finance/CLAUDE.md) | Financial analysis, DCF valuation, budgeting, forecasting, SaaS metrics |
-| **Standards Library** | [standards/CLAUDE.md](standards/CLAUDE.md) | Communication, quality, git, security standards |
-| **Templates** | [templates/CLAUDE.md](templates/CLAUDE.md) | Template system usage |
+| Domain                     | CLAUDE.md Location                                           | Focus                                                                   |
+| -------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------------------- |
+| **Agent Development**      | [agents/CLAUDE.md](agents/CLAUDE.md)                         | cs-\* agent creation, YAML frontmatter, relative paths                  |
+| **Marketing Skills**       | [marketing-skill/CLAUDE.md](marketing-skill/CLAUDE.md)       | Content creation, SEO, ASO, demand gen, campaign analytics              |
+| **Product Team**           | [product-team/CLAUDE.md](product-team/CLAUDE.md)             | RICE, OKRs, user stories, UX research, SaaS scaffolding                 |
+| **Engineering (Core)**     | [engineering-team/CLAUDE.md](engineering-team/CLAUDE.md)     | Fullstack, AI/ML, DevOps, security, data, QA tools                      |
+| **Engineering (POWERFUL)** | [engineering/](engineering/)                                 | Agent design, RAG, MCP, CI/CD, database, observability                  |
+| **C-Level Advisory**       | [c-level-advisor/CLAUDE.md](c-level-advisor/CLAUDE.md)       | CEO/CTO strategic decision-making                                       |
+| **Project Management**     | [project-management/CLAUDE.md](project-management/CLAUDE.md) | Atlassian MCP, Jira/Confluence integration                              |
+| **RA/QM Compliance**       | [ra-qm-team/CLAUDE.md](ra-qm-team/CLAUDE.md)                 | ISO 13485, MDR, FDA, GDPR, ISO 27001 compliance                         |
+| **Business & Growth**      | [business-growth/CLAUDE.md](business-growth/CLAUDE.md)       | Customer success, sales engineering, revenue operations                 |
+| **Finance**                | [finance/CLAUDE.md](finance/CLAUDE.md)                       | Financial analysis, DCF valuation, budgeting, forecasting, SaaS metrics |
+| **Standards Library**      | [standards/CLAUDE.md](standards/CLAUDE.md)                   | Communication, quality, git, security standards                         |
+| **Templates**              | [templates/CLAUDE.md](templates/CLAUDE.md)                   | Template system usage                                                   |
 
 ## Architecture Overview
 
@@ -58,6 +58,7 @@ claude-code-skills/
 ### Skill Package Pattern
 
 Each skill follows this structure:
+
 ```
 skill-name/
 ├── SKILL.md              # Master documentation
@@ -100,6 +101,7 @@ gh pr create --base dev --head feature/agents-{name}
 ```
 
 **Branch Protection Rules:**
+
 - ✅ Main: Requires PR approval, no direct push
 - ✅ Dev: Unprotected, but PRs recommended
 - ✅ All: Conventional commits enforced
@@ -112,12 +114,14 @@ See [standards/git/git-workflow-standards.md](standards/git/git-workflow-standar
 **No build system or test frameworks** - intentional design choice for portability.
 
 **Python Scripts:**
+
 - Use standard library only (minimal dependencies)
 - CLI-first design for easy automation
 - Support both JSON and human-readable output
 - No ML/LLM calls (keeps skills portable and fast)
 
 **If adding dependencies:**
+
 - Keep scripts runnable with minimal setup (`pip install package` at most)
 - Document all dependencies in SKILL.md
 - Prefer standard library implementations
@@ -127,14 +131,16 @@ See [standards/git/git-workflow-standards.md](standards/git/git-workflow-standar
 **Version:** v2.3.0 (latest)
 
 **v2.3.0 Highlights:**
+
 - **llm-wiki plugin** — new POWERFUL-tier skill implementing Karpathy's LLM Wiki pattern. Second brain for Claude Code + Obsidian where the LLM incrementally ingests sources into a persistent, interlinked markdown vault. Ships SKILL.md (with `context: fork`), 3 sub-agents (wiki-ingestor, wiki-librarian, wiki-linter), 5 slash commands (/wiki-init, /wiki-ingest, /wiki-query, /wiki-lint, /wiki-log), 8 stdlib-only Python tools, 8 reference guides, full vault templates, and a worked example. Cross-tool compatible with Claude Code, Codex CLI, Cursor, Antigravity, OpenCode, Gemini CLI.
 - **tc-tracker** — new engineering skill: task context tracker with lifecycle, handoff format, schema, and 5 Python tools (tc_init, tc_create, tc_update, tc_status, tc_validator) plus `/tc` slash command
 - **apple-hig-expert** — new product skill: Apple Human Interface Guidelines expert with Liquid Glass aesthetic focus. Audits iOS/macOS/visionOS apps with `hig_checker` Python tool and comprehensive reference docs on visual design, platform specifics, and accessibility
-- 235 total skills, 314 Python tools, 435 references, 28 agents, 27 commands
+- 183 total skills, 372 Python tools, 451 references, 28 agents, 29 commands
 
 **Version:** v2.2.0
 
 **v2.2.0 Highlights:**
+
 - **Security skills suite** — 6 new engineering-team skills: adversarial-reviewer, ai-security, cloud-security, incident-response, red-team, threat-detection (5 Python tools, 4 reference guides)
 - **Self-eval skill** — Honest AI work quality evaluation with two-axis scoring, score inflation detection, and session persistence
 - **Snowflake development** — Data warehouse development, SQL optimization, and data pipeline patterns
@@ -142,17 +148,20 @@ See [standards/git/git-workflow-standards.md](standards/git/git-workflow-standar
 - MkDocs docs site expanded to 269 generated pages (301 HTML pages)
 
 **v2.1.2 (2026-03-10):**
+
 - Landing page generator now outputs **Next.js TSX + Tailwind CSS** by default (4 design styles, 7 section generators)
 - **Brand voice integration** — landing page workflow uses marketing brand voice analyzer to match copy tone to design style
 - 25 Python scripts fixed across all domains (syntax, dependencies, argparse)
 - 237/237 scripts verified passing `--help`
 
 **v2.1.1 (2026-03-07):**
+
 - 18 skills optimized from 66-83% to 85-100% via Tessl quality review
 - YAML frontmatter (name + description) added to all SKILL.md files
 - 6 new agents + 5 slash commands, Gemini CLI support, MkDocs docs site
 
 **v2.0.0 (2026-02-16):**
+
 - 25 POWERFUL-tier engineering skills added (engineering/ folder)
 - Plugin marketplace infrastructure (.claude-plugin/marketplace.json)
 - Multi-platform support: Claude Code, OpenAI Codex, OpenClaw, Hermes Agent, Gemini CLI, Cursor, and 6 more
@@ -161,9 +170,10 @@ See [standards/git/git-workflow-standards.md](standards/git/git-workflow-standar
 
 ## Roadmap
 
-**Phase 1-3 Complete:** 235 production-ready skills deployed across 9 domains
-- Engineering Core (37), Engineering POWERFUL (45), Product (16), Marketing (44), PM (9), C-Level (34), RA/QM (14), Business & Growth (5), Finance (4)
-- 314 Python automation tools, 435 reference guides, 28 agents, 27 commands
+**Phase 1-3 Complete:** 183 production-ready skills deployed across 9 domains
+
+- Engineering Core (32), Engineering POWERFUL (35), Product (13), Marketing (44), PM (9), C-Level (28), RA/QM (14), Business & Growth (5), Finance (3)
+- 372 Python automation tools, 451 reference guides, 28 agents, 29 commands
 - Complete enterprise coverage from engineering through regulatory compliance, sales, customer success, and finance
 - MkDocs Material docs site with 293+ indexed pages for SEO
 
@@ -209,7 +219,7 @@ This repository publishes skills to **ClawHub** (clawhub.com) as the distributio
 
 ## Additional Resources
 
-- **.gitignore:** Excludes .vscode/, .DS_Store, AGENTS.md, PROMPTS.md, .env*
+- **.gitignore:** Excludes .vscode/, .DS_Store, AGENTS.md, PROMPTS.md, .env\*
 - **Plugin Registry:** [.claude-plugin/marketplace.json](.claude-plugin/marketplace.json) - Marketplace distribution
 - **Standards Library:** [standards/](standards/) - Communication, quality, git, documentation, security
 - **Implementation Plans:** [documentation/implementation/](documentation/implementation/)
